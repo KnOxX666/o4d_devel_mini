@@ -1,0 +1,22 @@
+# reference: https://docs.docker.com/compose/compose-file/
+version: '3.8'
+services:
+  o4d_mini:
+    # When running docker-compose up, the container_name directive is respected;
+    # when running docker-compose run myservice, the container_name directive is ignored and the default auto-generated container name is used.
+    container_name: o4d_devel_mini
+    image: knoxx667/o4d_devel_mini:1.0.0
+    network_mode: bridge
+    build:
+      context: docker/
+    user: ${DOCKER_UID:-1000}:${DOCKER_GID:-1000}
+    working_dir: /export/home/$USER
+    volumes:
+      # CMake source and build directories
+      # INFO: adapt when necessary, can be passed to docker run 'without compose' via -v
+      - /export/home/$USER:/export/home/$USER
+      # To share host's display (i.e. without need to bind X11 to tcp):
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      DISPLAY: $DISPLAY
+      USER: container
