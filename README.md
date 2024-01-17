@@ -8,11 +8,11 @@ docker general
 
 **run shell interactive with mounted volume from docker compose-file**
 
-    docker compose run --rm o4d-mini /bin/bash
+    docker compose run --rm o4d_mini /bin/bash
 
 **execute another bash in running container**
 
-    docker compose exec -it <container_id> /bin/bash
+    docker compose exec -u container -it <container_id> /bin/bash
     where <container_id> can be looked up by calling 'docker ps'.
 
 docker build image
